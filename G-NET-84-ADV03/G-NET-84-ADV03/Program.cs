@@ -1,3 +1,5 @@
+using G_NET_84_ADV03.CustomMiddleWare;
+
 namespace G_NET_84_ADV03
 {
     public class Program
@@ -10,7 +12,7 @@ namespace G_NET_84_ADV03
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
-
+            app.UseMiddleware<RequestTimmingMiddleware>();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

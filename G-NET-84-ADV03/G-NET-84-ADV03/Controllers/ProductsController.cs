@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace G_NET_84_ADV03.Controllers
 {
+    [Route("Test")]
     public class ProductsController : Controller
     {
+        #region Actions and actionResult
         //BaseUrl/Controller Name/Action(by default get)
         public IActionResult Index()
         {
@@ -35,18 +37,18 @@ namespace G_NET_84_ADV03.Controllers
             {
                 return BadRequest();
             }
-            else if(id == 0)
+            else if (id == 0)
             {
                 return RedirectToAction(nameof(Index));
 
             }
-            else if(id<10)
+            else if (id < 10)
             {
                 return NotFound();
             }
             else
             {
-                return Json(new Product() { Id = id, Name="Laptop"});
+                return Json(new Product() { Id = id, Name = "Laptop" });
             }
         }
         #endregion
@@ -62,7 +64,21 @@ namespace G_NET_84_ADV03.Controllers
         public IActionResult FileAction()
         {
             byte[] fileBytes = System.IO.File.ReadAllBytes("wwwroot/Files/link.pdf");
-            return File(fileBytes,"application/pdf", "Sample.pdf");
+            return File(fileBytes, "application/pdf", "Sample.pdf");
+        }
+        #endregion
+        #endregion
+        #region Routing
+        [HttpGet("json")]
+        // baseurl / test/ json
+        public IActionResult JsonAction()
+        {
+            return Json("Hello from json action");
+        }
+        [HttpGet("ProductCode/{Code:int}")]
+        public IActionResult GetProductByCode(int Code)
+        {
+            return Json(new Product{ Id = Code, Name = "Mobile" });
         }
         #endregion
     }
