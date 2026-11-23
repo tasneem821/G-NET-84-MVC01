@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace G_NET_84_ADV03.Controllers
 {
-    [Route("Test")]
+    //[Route("Test")]
     public class ProductsController : Controller
     {
         #region Actions and actionResult
@@ -80,6 +80,20 @@ namespace G_NET_84_ADV03.Controllers
         {
             return Json(new Product{ Id = Code, Name = "Mobile" });
         }
+        #endregion
+        #region ModelBinding
+        [HttpGet]
+        public IActionResult Search (ProductFilter productFilter)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetById([FromQuery] int id, [FromQuery(Name ="id2")] int otherId)
+        {
+            return Json(new { source = "Query", id, otherId });
+        }
+
         #endregion
     }
 }
